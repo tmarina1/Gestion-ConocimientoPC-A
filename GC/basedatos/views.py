@@ -21,9 +21,14 @@ def index(request):
     nombre = request.POST['Nombre']
     archivo = request.FILES['Archivo']
 
-    if update != 'Actualizar':
+    if verificarPrevioRegistro(nombre) and update != 'Actualizar':
+      messages.info(request,'Existe un archivo con este nombre, porfavor intenta con otro.') 
+      return render(request,'salto.html')
+
+    elif update != 'Actualizar':
       agregar = models.Archivo(area=area, nombre=nombre, fecha=None, archivo= archivo)
       agregar.save()
+      messages.info(request,'¡Grardado existosamente!') 
       return render(request,'salto.html')
     else:
       actualizarArchivo(area, nombre, archivo)
@@ -39,3 +44,10 @@ def actualizarArchivo(area, nombre, archivo):
   target.nombre = nombre
   target.archivo = archivo
   target.save(update_fields=['area', 'nombre', 'archivo'])
+
+def verificarPrevioRegistro(criterio, tipo='nombre'):
+    query = False
+    
+    if tipo == 'nombre':
+        query = models.Archivo.objects.filter(nombre=criterio).exists()
+    return query
