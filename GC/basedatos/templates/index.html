@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    {% load static %}
+    <title>Home - PC&amp;A</title>
+    <meta name="description" content="Gestión del conocimiento." />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+          $('.form-check-input').click(function()
+           {
+               var txt="";
+               $('.form-check-input:checked').each(function(){
+                   txt+=$(this).val()
+               });
+               $('#update').val(txt);
+          });
+      });
+    </script>
+    <link
+      rel="stylesheet"
+      href="{% static 'basedatos/css/assets/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'basedatos/css/assets/fonts/font-awesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'basedatos/css/assets/bootstrap/css/Style.css' %}"
+    />
+    
+  </head>
+
+  <body
+    id="page-top"
+    data-bs-spy="scroll"
+    data-bs-target="#mainNav"
+    data-bs-offset="72"
+  >
+    <nav
+      class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase"
+      id="mainNav"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="#page-top" style="font-size: 35px"
+          >PC&amp;A</a
+        >
+      </div>
+    </nav>
+    <header class="text-center text-white bg-primary masthead">
+      <div class="container">
+        <img
+          class="img-fluid d-block mx-auto mb-5"
+          src="{% static 'basedatos/css/assets/img/guy.png' %}"
+        />
+        <h1>Gestión del conocimiento</h1>
+        <hr class="star-light" />
+        <h2 class="font-weight-light mb-0">
+          Almacena tus conocimientos fácilmente
+        </h2>
+      </div>
+      <div></div>
+    </header>
+    <section class="align-items-center portfolio" id="portfolio">
+      <div class="container">
+        <h2 class="text-uppercase text-center text-secondary">
+          Coloca tu archivo
+        </h2>
+        <hr class="star-dark mb-5" />
+        <div class="row">
+          <div class="col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
+            <a
+              class="d-block mx-auto portfolio-item"
+              href="#portfolio-modal-1"
+              data-bs-toggle="modal"
+            ></a>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h5>Area</h5>
+              <input
+                type="text"
+                name="Area"
+                style="width: 100%; margin-bottom: 20px"
+              />
+              <h5>Mensaje</h5>
+              <input type="text" name="Nombre" style="width: 100%" />
+              <input type="file" name="Archivo" style="margin-top: 20px" />
+              <br />
+              <br>
+              <input type="checkbox" value="Actualizar" id="formCheck-1" class="form-check-input">&nbsp&nbspActualizar</label>
+              <input type="hidden" name="update" id="update">
+              <br>
+              <button
+                class="btn btn-primary"
+                type="submit"
+                style="padding: 7px 12px; margin-left: 40%; margin-top: 20px"
+              >
+                Guardar
+              </button>
+            </form>
+
+            <form action="">
+              <h5 style="margin-top: 50px">Archivo a buscar</h5>
+              <input type="text" name="NombreBusqueda" style="width: 100%" />
+              <button
+                class="btn btn-primary"
+                type="submit"
+                style="padding: 7px 12px; margin-left: 40%; margin-top: 20px"
+              >
+                Buscar
+              </button>
+            </form>
+            <br />
+            {% if searchTerm != None %}
+            <p>Buscando {{ searchTerm }}</p>
+            {% endif %} {% for mensaje in mensajes %}
+            <p name="Consulta">
+              {%if mensaje.nombre == searchTerm and mensaje.nombre%}
+              <strong>{{mensaje.nombre}}:&nbsp&nbsp</strong>
+              {% endif %}
+              {%if mensaje.nombre == searchTerm and mensaje.archivo%}
+              <a
+                href="{{mensaje.archivo}}"
+                download
+                target="_blank"
+                rel="noopener"
+                >{{mensaje.archivo}}</a
+              >
+              <p>{{mensaje.fecha}}</p>
+              {% endif %}
+            </p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="text-white bg-primary mb-0"
+      id="about"
+      style="font-weight: bold"
+    >
+      <div class="container">
+        <h2 class="text-uppercase text-center text-white">Sobre PC&amp;A</h2>
+        <hr class="star-light mb-5" />
+        <div class="row">
+          <div class="col">
+            <p class="lead" style="font-size: 21px; text-align: justify">
+              La misión de PC&amp;A se basa en ofrecer servicios de la más alta
+              calidad a las pequeñas y medianas empresas en los campos
+              contables, financieros, de auditoría externa, revisoría fiscal,
+              asesoría gerencial, tributaria y legal con el fin de contribuir a
+              la generación de los valores agregados que nuestros clientes
+              necesitan. Lo anterior lo desarrollaremos dentro de un marco de
+              ética, objetividad, integridad e idoneidad; aplicando las más
+              modernas técnicas de trabajo con metodologías creativas que nos
+              permitan contribuir al crecimiento de la sociedad en general y el
+              de nuestros colaboradores, procurando ofrecer rentabilidad a sus
+              socios.
+              <br />
+              <br />
+              En el futuro próximo PC&A, será una de las empresas líderes a
+              nivel nacional, en el desarrollo de servicios de asesoría y
+              consultoría financiera, contable, auditoría y de sistemas;
+              manteniendo relaciones estables con nuestros clientes, acompañando
+              sus procesos de planeación estrategia y contribuyendo a su
+              crecimiento.
+            </p>
+          </div>
+        </div>
+        <div class="text-center mt-4"></div>
+      </div>
+    </section>
+    <section
+      class="apartadoInfoGestion"
+    >
+      <div class="containerGestion">
+        <h2 class="tituloGestion">Importancia de la gestión del conocimiento</h2>
+        <hr class="star-dark mb-5"/>
+        <div class="row">
+          <div class="col">
+            <p class="parrafoGestion">
+              <h4 id="subtituloGestion">Relevancia & Ventajas</h4>
+              <br />
+              <br />
+              <ul class="containerListaGestion">
+                <li>Una gestión estratégica más eficaz, gracias al conocimiento de las mejores estrategias, técnicas, prácticas y soluciones.</li>
+                <li>Aumento de la eficiencia y la productividad con más colaboración y el uso de los procesos más adecuados.</li>
+                <li>Incremento del trabajo en equipo, de la innovación y de la búsqueda de soluciones creativas.</li>
+                <li>Disminución del desfase del aprendizaje y más obtención de conocimientos de una forma sistemática.</li>
+                <li>Aceleración de la curva de productividad de los nuevos empleados a través de la formación asertiva y el acceso a los datos, a la información y al conocimiento que necesitan.</li>
+                <li>Estandarización de los procesos y acceso rápido a la información, tornando más inteligente la tomada de decisiones.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <div class="text-center mt-4"></div>
+      </div>
+    </section>
+    <footer class="text-center footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Ubicación</h4>
+            <p>Cra. 43a #1038, Medellín, Antioquia</p>
+          </div>
+          <div class="col-md-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase">Contactos</h4>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a
+                  class="btn btn-outline-light text-center btn-social rounded-circle"
+                  role="button"
+                  href="#"
+                  ><i class="fa fa-facebook fa-fw"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="btn btn-outline-light text-center btn-social rounded-circle"
+                  role="button"
+                  href="#"
+                  ><i class="fa fa-google-plus fa-fw"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="btn btn-outline-light text-center btn-social rounded-circle"
+                  role="button"
+                  href="#"
+                  ><i class="fa fa-twitter fa-fw"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="btn btn-outline-light text-center btn-social rounded-circle"
+                  role="button"
+                  href="#"
+                  ><i class="fa fa-dribbble fa-fw"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-uppercase mb-4">Software</h4>
+            <p class="lead mb-0">
+              <span
+                >Plataforma gestión de conocimiento de la empresa PC&A.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="text-center text-white copyright py-4">
+      <div class="container"><small>Copyright ©&nbsp;PC&amp;A 2022</small></div>
+    </div>
+    <div class="d-lg-none scroll-to-top position-fixed rounded">
+      <a class="text-center d-block rounded text-white" href="#page-top"
+        ><i class="fa fa-chevron-up"></i
+      ></a>
+    </div>
+    <div
+      class="modal text-center"
+      role="dialog"
+      tabindex="-1"
+      id="portfolio-modal-1"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <h2 class="text-uppercase text-secondary mb-0">
+                    Project Name
+                  </h2>
+                  <hr class="star-dark mb-5" />
+                  <img
+                    class="img-fluid mb-5"
+                    src="assets/img/portfolio/cabin.png"
+                  />
+                  <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Mollitia neque assumenda ipsam nihil, molestias magnam,
+                    recusandae quos quis inventore quisquam velit asperiores,
+                    vitae? Reprehenderit soluta, eos quod consequuntur itaque.
+                    Nam.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer pb-5">
+            <a
+              class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss"
+              role="button"
+              data-bs-dismiss="modal"
+              ><i class="fa fa-close"></i>&nbsp;Close Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal text-center"
+      role="dialog"
+      tabindex="-1"
+      id="portfolio-modal-2"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <h2 class="text-uppercase text-secondary mb-0">
+                    Project Name
+                  </h2>
+                  <hr class="star-dark mb-5" />
+                  <img
+                    class="img-fluid mb-5"
+                    src="assets/img/portfolio/cake.png"
+                  />
+                  <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Mollitia neque assumenda ipsam nihil, molestias magnam,
+                    recusandae quos quis inventore quisquam velit asperiores,
+                    vitae? Reprehenderit soluta, eos quod consequuntur itaque.
+                    Nam.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer pb-5">
+            <a
+              class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss"
+              role="button"
+              data-bs-dismiss="modal"
+              ><i class="fa fa-close"></i>&nbsp;Close Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal text-center"
+      role="dialog"
+      tabindex="-1"
+      id="portfolio-modal-3"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <h2 class="text-uppercase text-secondary mb-0">
+                    Project Name
+                  </h2>
+                  <hr class="star-dark mb-5" />
+                  <img
+                    class="img-fluid mb-5"
+                    src="assets/img/portfolio/circus.png"
+                  />
+                  <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Mollitia neque assumenda ipsam nihil, molestias magnam,
+                    recusandae quos quis inventore quisquam velit asperiores,
+                    vitae? Reprehenderit soluta, eos quod consequuntur itaque.
+                    Nam.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer pb-5">
+            <a
+              class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss"
+              role="button"
+              data-bs-dismiss="modal"
+              ><i class="fa fa-close"></i>&nbsp;Close Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal text-center"
+      role="dialog"
+      tabindex="-1"
+      id="portfolio-modal-4"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <h2 class="text-uppercase text-secondary mb-0">
+                    Project Name
+                  </h2>
+                  <hr class="star-dark mb-5" />
+                  <img
+                    class="img-fluid mb-5"
+                    src="assets/img/portfolio/game.png"
+                  />
+                  <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Mollitia neque assumenda ipsam nihil, molestias magnam,
+                    recusandae quos quis inventore quisquam velit asperiores,
+                    vitae? Reprehenderit soluta, eos quod consequuntur itaque.
+                    Nam.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer pb-5">
+            <a
+              class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss"
+              role="button"
+              data-bs-dismiss="modal"
+              ><i class="fa fa-close"></i>&nbsp;Close Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal text-center"
+      role="dialog"
+      tabindex="-1"
+      id="portfolio-modal-5"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <h2 class="text-uppercase text-secondary mb-0">
+                    Project Name
+                  </h2>
+                  <hr class="star-dark mb-5" />
+                  <img
+                    class="img-fluid mb-5"
+                    src="assets/img/portfolio/safe.png"
+                  />
+                  <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Mollitia neque assumenda ipsam nihil, molestias magnam,
+                    recusandae quos quis inventore quisquam velit asperiores,
+                    vitae? Reprehenderit soluta, eos quod consequuntur itaque.
+                    Nam.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer pb-5">
+            <a
+              class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss"
+              role="button"
+              data-bs-dismiss="modal"
+              ><i class="fa fa-close"></i>&nbsp;Close Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal text-center"
+      role="dialog"
+      tabindex="-1"
+      id="portfolio-modal-6"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <h2 class="text-uppercase text-secondary mb-0">
+                    Project Name
+                  </h2>
+                  <hr class="star-dark mb-5" />
+                  <img
+                    class="img-fluid mb-5"
+                    src="assets/img/portfolio/submarine.png"
+                  />
+                  <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Mollitia neque assumenda ipsam nihil, molestias magnam,
+                    recusandae quos quis inventore quisquam velit asperiores,
+                    vitae? Reprehenderit soluta, eos quod consequuntur itaque.
+                    Nam.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer pb-5">
+            <a
+              class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss"
+              role="button"
+              data-bs-dismiss="modal"
+              ><i class="fa fa-close"></i>&nbsp;Close Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/freelancer.js"></script>
+  </body>
+</html>
