@@ -12,6 +12,9 @@ def index(request):
   searchTerm = request.GET.get('NombreBusqueda')
   if searchTerm:
     mensajes = Archivo.objects.filter(nombre__icontains = searchTerm)
+    cont = int(mensajes.get().accesos)+1
+    mensajes.update(accesos=cont)
+
   else:
     mensajes = 'Buscar'
 
@@ -26,13 +29,15 @@ def index(request):
       return render(request,'salto.html')
 
     elif update != 'Actualizar':
-      agregar = models.Archivo(area=area, nombre=nombre, fecha=None, archivo= archivo)
+      agregar = models.Archivo(area=area, nombre=nombre, fecha=None, archivo= archivo, accesos = 0)
       agregar.save()
-      messages.info(request,'¡Grardado existosamente!') 
+      messages.info(request,'¡Guardado existosamente!') 
       return render(request,'salto.html')
     else:
       actualizarArchivo(area, nombre, archivo)
+      messages.info(request,'¡Actualizado existosamente!') 
       return render(request,'salto.html')
+
   return render(request,'index.html',{'searchTerm':searchTerm,'mensajes':mensajes}) 
 
 def Salto(request):
