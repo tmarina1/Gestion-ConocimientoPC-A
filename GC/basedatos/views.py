@@ -31,11 +31,11 @@ def index(request):
     elif update != 'Actualizar':
       agregar = models.Archivo(area=area, nombre=nombre, fecha=None, archivo= archivo, accesos = 0)
       agregar.save()
-      messages.info(request,'¡Guardado existosamente!') 
+      messages.info(request,'¡Guardado exitosamente!') 
       return render(request,'salto.html')
     else:
       actualizarArchivo(area, nombre, archivo)
-      messages.info(request,'¡Actualizado existosamente!') 
+      messages.info(request,'¡Actualizado exitosamente!') 
       return render(request,'salto.html')
 
   return render(request,'index.html',{'searchTerm':searchTerm,'mensajes':mensajes}) 
