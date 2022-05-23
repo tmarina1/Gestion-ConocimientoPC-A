@@ -5,6 +5,7 @@ from basedatos.models import Archivo
 from basedatos import models
 from .models import Archivo
 import datetime
+from datetime import datetime
 
 # Create your views here.
 
@@ -16,12 +17,14 @@ def index(request):
     mensajes.update(accesos=cont)
 
   else:
+    #messages.info(request,'Archivo inexcistente porfavor guardelo antes de buscar')
     mensajes = 'Buscar'
 
   if request.method == 'POST':
     update = request.POST['update']
     area = request.POST['Area']
     nombre = request.POST['Nombre']
+    fecha = datetime.now()
     archivo = request.FILES['Archivo']
 
     if verificarPrevioRegistro(nombre) and update != 'Actualizar':
@@ -34,7 +37,7 @@ def index(request):
       messages.info(request,'¡Guardado exitosamente!') 
       return render(request,'salto.html')
     else:
-      actualizarArchivo(area, nombre, archivo)
+      actualizarArchivo(area, nombre, fecha, archivo)
       messages.info(request,'¡Actualizado exitosamente!') 
       return render(request,'salto.html')
 
@@ -43,12 +46,13 @@ def index(request):
 def Salto(request):
   return render(request, 'salto.html')
 
-def actualizarArchivo(area, nombre, archivo):
+def actualizarArchivo(area, nombre, fecha, archivo):
   target = models.Archivo.objects.get(nombre=nombre)
   target.area = area
   target.nombre = nombre
+  target.fecha = fecha
   target.archivo = archivo
-  target.save(update_fields=['area', 'nombre', 'archivo'])
+  target.save(update_fields=['area', 'nombre', 'fecha', 'archivo'])
 
 def verificarPrevioRegistro(criterio, tipo='nombre'):
     query = False

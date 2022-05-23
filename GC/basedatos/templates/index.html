@@ -140,7 +140,7 @@
               {% endif %}
               {%if mensaje.nombre == searchTerm and mensaje.archivo%}
               <a
-                href="{{mensaje.archivo}}"
+                href="{{mensaje.archivo.url}}"
                 download
                 target="_blank"
                 rel="noopener"
