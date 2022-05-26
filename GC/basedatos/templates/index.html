@@ -91,14 +91,18 @@
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <h5>Area</h5>
-              <input
-                type="text"
-                name="Area"
-                style="width: 100%; margin-bottom: 20px"
-              />
+              <select name="Area" id="campoArea"  style="width: 100%; margin-bottom: 20px" required>
+                <option value="Contabilidad">Contabilidad</option>
+                <option value="Finanzas">Finanzas</option>
+                <option value="Gestión Humana">Gestión Humana</option>
+                <option value="Revisoría Fiscal">Revisoría Fiscal</option>
+                <option value="Departamento Jurídico">Departamento Jurídico</option>
+                <option value="Consultoría">Consultoría</option>
+                <option value="Dirección Estratégica">Dirección Estratégica</option>
+              </select>
               <h5>Mensaje</h5>
-              <input type="text" name="Nombre" style="width: 100%" />
-              <input type="file" name="Archivo" style="margin-top: 20px" />
+              <input type="text" name="Nombre" style="width: 100%" required/>
+              <input type="file" name="Archivo" style="margin-top: 20px" required/>
               <br />
               <br>
               <input type="checkbox" value="Actualizar" id="formCheck-1" class="form-check-input">&nbsp&nbspActualizar</label>
@@ -138,7 +142,7 @@
               {%if mensaje.nombre == searchTerm and mensaje.nombre%}
               <strong>{{mensaje.nombre}}:&nbsp&nbsp</strong>
               {% endif %}
-              {%if mensaje.nombre == searchTerm and mensaje.archivo%}
+              <!--{%if mensaje.nombre == searchTerm and mensaje.archivo%}-->
               <a
                 href="{{mensaje.archivo.url}}"
                 download
@@ -148,7 +152,7 @@
               >
               <p>{{mensaje.fecha}}</p>
               <p>Visualizaciones: {{mensaje.accesos}}</p>
-              {% endif %}
+              <!--{% endif %}-->
             </p>
             {% endfor %}
           </div>
