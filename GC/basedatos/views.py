@@ -37,9 +37,13 @@ def index(request):
       messages.info(request,'¡Guardado exitosamente!') 
       return render(request,'salto.html')
     else:
-      actualizarArchivo(area, nombre, fecha, archivo)
-      messages.info(request,'¡Actualizado exitosamente!') 
-      return render(request,'salto.html')
+      try:
+        actualizarArchivo(area, nombre, fecha, archivo)
+        messages.info(request,'¡Actualizado exitosamente!') 
+        return render(request,'salto.html')
+      except:
+        messages.info(request,'¡No existe el registro que desea actualizar!') 
+        return render(request,'salto.html')
 
   return render(request,'index.html',{'searchTerm':searchTerm,'mensajes':mensajes}) 
 
