@@ -13,12 +13,18 @@ def index(request):
   searchTerm = request.GET.get('NombreBusqueda')
   if searchTerm:
     mensajes = Archivo.objects.filter(nombre__icontains = searchTerm)
-    cont = int(mensajes.get().accesos)+1
-    mensajes.update(accesos=cont)
-
+    try:
+      cont = int(mensajes.get().accesos)+1
+      mensajes.update(accesos=cont)
+    except:
+      messages.info(request,'Archivo no encontrado, porfavor guardelo primero.') 
+      return render(request,'salto.html')
+    #print(dato)
+    print(searchTerm)
+    print(mensajes)
   else:
-    #messages.info(request,'Archivo inexcistente porfavor guardelo antes de buscar')
     mensajes = 'Buscar'
+    #messages.info(request,'Archivo no encontrado, porfavor guardelo primero.') 
 
   if request.method == 'POST':
     update = request.POST['update']
