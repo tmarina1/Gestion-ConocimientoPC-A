@@ -17,14 +17,14 @@ def index(request):
       cont = int(mensajes.get().accesos)+1
       mensajes.update(accesos=cont)
     except:
-      messages.info(request,'Archivo no encontrado, porfavor guardelo primero.') 
+      messages.info(request,'Archivo no encontrado, por favor guárdelo primero.') 
       return render(request,'salto.html')
     #print(dato)
     print(searchTerm)
     print(mensajes)
   else:
     mensajes = 'Buscar'
-    #messages.info(request,'Archivo no encontrado, porfavor guardelo primero.') 
+    #messages.info(request,'Archivo no encontrado, por favor guardelo primero.') 
 
   if request.method == 'POST':
     update = request.POST['update']
@@ -34,7 +34,7 @@ def index(request):
     archivo = request.FILES['Archivo']
 
     if verificarPrevioRegistro(nombre) and update != 'Actualizar':
-      messages.info(request,'Existe un archivo con este nombre, porfavor intenta con otro.') 
+      messages.info(request,'Existe un archivo con este nombre, por favor intenta con otro.') 
       return render(request,'salto.html')
 
     elif update != 'Actualizar':
